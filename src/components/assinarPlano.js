@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, MaskInput, Plano } from "../assets/css/style";
 import seta from '../assets/img/Seta.svg'
 import lista from  '../assets/img/lista.svg'
 import dinheiro from '../assets/img/dinheiro.svg'
+import { AuthContext } from "../provider/provider";
 
 export default function AssinarPlano(){
     const [plano, setPlano] = useState({})
@@ -15,13 +16,16 @@ export default function AssinarPlano(){
     const [cvv, setCvv] = useState('');
     const [validade, setValidade] = useState('');
 
+    const user = localStorage.getItem('usuario');
+    const userObject = JSON.parse(user)
+
     const id = localStorage.getItem('plano')
-    const token = localStorage.getItem('usuario')
     const navigate = new useNavigate();
+
     const config = 
     {
         headers: {
-            Authorization: 'Bearer ' + token
+            Authorization: 'Bearer ' + userObject.token
         }
     }
 
@@ -47,12 +51,19 @@ export default function AssinarPlano(){
         console.log(dados)
         axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions', dados, config)
         .then(() => {
+            axios.post('https://mock-api.driven.com.br/api/v4/driven-plus/auth/login', {
+                email: userObject.email,
+                password: userObject.password
+            }).then(crr =>{
+                const data = localStorage.setItem('usuario', JSON.stringify(crr.data))
+            })
             alert('Plano Assinado com sucesso!')
+            navigate('/home')
         })
         .catch((err) => {
             console.log(err.response.data)
             alert('Alguma coisa deu errado, verifique os dados e tente novamente!');
-            setValue(false)
+            setValue(false)            
         })
     }
 

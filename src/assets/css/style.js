@@ -1,6 +1,130 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { IMaskInput } from "react-imask";
+import {FaUserCircle} from 'react-icons/fa'
+
+export const HomeContainer = styled.div`
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding: 30px 40px;
+
+    font-family: 'Roboto', sans-serif;
+
+    padding-top: 95px;
+
+    h1{
+        font-size: 24px;
+        font-weight: 700;
+        
+        color: #FFFFFF;
+        margin-bottom: 53px;
+    }
+
+    a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 0px;
+        border-radius: 8px;
+
+        width: 85%;
+        height: 40px;
+
+        color: #FFFFFF;
+        margin-bottom: 8px;
+
+        background-color: #FF4791;
+
+        text-decoration: none;
+    }
+
+    .logo{
+        display: flex;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+
+        color: #ffffff;
+
+        img{
+            width: 70px;
+            height: 50px;
+        }
+    }
+`
+export const User = styled(FaUserCircle)`
+    color: #ffffff;
+
+    width: 32px;
+    height: 32px;
+
+    position: absolute;
+    top: 22px;
+    right: 22px;
+`
+export const HomeFooter = styled.footer`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    height: 20%;
+
+    background-color: #0e0e13;
+
+    width: 100%;
+
+    font-family: 'Roboto', sans-serif;
+    .btn1{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        button{
+            border: 0px;
+            border-radius: 8px;
+
+            width: 75%;
+            height: 40px;
+
+            color: #FFFFFF;
+            margin-bottom: 8px;
+
+            background-color: #FF4791;
+        }
+    }
+    .btn2{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        button{
+            border: 0px;
+            border-radius: 8px;
+
+            width: 75%;
+            height: 40px;
+
+            color: #FFFFFF;
+
+            background-color: #FF4747;
+        }
+    }
+`
 
 export const Container = styled.div` 
     display: flex;
@@ -120,6 +244,9 @@ export const Container = styled.div`
     }
 
 `
+
+
+
 export const Plano = styled.div`
     box-sizing: border-box;
 

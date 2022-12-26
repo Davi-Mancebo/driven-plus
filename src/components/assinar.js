@@ -1,17 +1,21 @@
 import axios from "axios";
-import react, { useEffect, useState } from "react";
+import react, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../assets/css/style";
+import { AuthContext } from "../provider/provider";
 
 export default function Assinatura(){
     const navigate = new useNavigate()
     const [planos, setPlanos] = useState([])
     const token = localStorage.getItem('usuario')
+    const dataUser = JSON.parse(token)
+
+    console.log(dataUser)
 
     const config = {
         
         headers: {
-            Authorization: 'Bearer ' + token
+            Authorization: 'Bearer ' + dataUser.token
         }
     }
 

@@ -4,6 +4,7 @@ import Cadastro from "./cadastro";
 import Login from "./login";
 import Assinatura from "./assinar";
 import AssinarPlano from "./assinarPlano";
+import Home from "./home";
 
 export default function App(){
     return(
@@ -13,7 +14,7 @@ export default function App(){
                 <Route path="/sign-up" element={<Cadastro />}/>
                 <Route path="/subscriptions" element={<Assinatura/>}/>
                 <Route path="/subscriptions/:idplano" element={<AssinarPlano />}/>
-                <Route path="/home"/>
+                <Route path="/home" element={<Home/>}/>
             </Routes>
         </BrowserRouter>
     )

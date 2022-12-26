@@ -1,5 +1,5 @@
 import axios from "axios"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { GeralLogin, StyleLink } from "../assets/css/style"
 import logo from "../assets/img/logo.png"
@@ -9,22 +9,54 @@ export default function Login(){
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [text, setText] = useState('')
+
     const [value, setValue] = useState(false)
+
     const navigate = new useNavigate();
+    
+    const usuarioLogado = localStorage.getItem('logado')
+
+    const user = localStorage.getItem('usuario')
+    const userObject = JSON.parse(user)
+
+    useEffect(() =>{
+        if(usuarioLogado){
+            const promise = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/auth/login", 
+            {
+                email: userObject.email,
+                password: userObject.password
+            })
+            .then( crr =>{
+                console.log(crr.data)
+                const dadosSerial = JSON.stringify(crr.data)
+                localStorage.setItem('usuario', dadosSerial)
+
+                console.log(JSON.parse(localStorage.getItem('usuario')))
+
+                if(crr.data.membership !== null){
+                    navigate('/home')
+                }
+                else{
+                    navigate('/subscriptions')
+                }
+            }   
+            )
+        }
+    }, [])
+
 
     const data = {
         email: email,
         password: senha
     }
-
-    const serialData = JSON.stringify(data)
     
     function login(){
-
-
         const promise = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/auth/login", data)
         promise.then((e) => {
-            localStorage.setItem("usuario", e.data.token)
+            const serialData = JSON.stringify(e.data)
+
+            localStorage.setItem("usuario", serialData)
+            localStorage.setItem('logado', true)
             console.log(e.data)
             if(e.data.membership === null){
                 navigate("/subscriptions")
